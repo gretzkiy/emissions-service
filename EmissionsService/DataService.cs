@@ -5,21 +5,24 @@ using System.Text;
 using System.Threading.Tasks;
 using Dapper;
 using System.Data;
+using System.Configuration;
 
 namespace EmissionsService
 {
     class DataService
     {
-        const string DbConnectionString = @"Server=.\SQLEXPRESS;Database=emissionsDBtest;Trusted_Connection=True;";
+        public static string DbConnectionString = ConfigurationManager.ConnectionStrings["emissionsDb"].ConnectionString;
         
-        public static void WriteNum(int num)
-        {
-            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(DbConnectionString))
-            {
-                var sqlQuery = "INSERT INTO MySources (SourceUuid, pniv) VALUES (@SourceUuid, @pniv);";
+        //public static void WriteNum(int num)
+        //{
+        //    using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(DbConnectionString))
+        //    {
+        //        var sqlQuery = "INSERT INTO MySources (SourceUuid, pniv) VALUES (@SourceUuid, @pniv);";
 
-                connection.Execute(sqlQuery, new { pniv = num, SourceUuid = Guid.NewGuid().ToString() });
-            }
-        }
+        //        connection.Execute(sqlQuery, new { pniv = num, SourceUuid = Guid.NewGuid().ToString() });
+        //    }
+        //}
+
+
     }
 }

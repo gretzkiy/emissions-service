@@ -12,14 +12,23 @@ namespace EmissionsService
         /// <summary>
         /// Главная точка входа для приложения.
         /// </summary>
-        static void Main()
+        static void Main(string[] args)
         {
-            ServiceBase[] ServicesToRun;
-            ServicesToRun = new ServiceBase[]
+            if (Environment.UserInteractive)
             {
-                new EmissionsService()
-            };
-            ServiceBase.Run(ServicesToRun);
+                // Запуск в качестве консольного приложения
+                EmissionsService service = new EmissionsService();
+                service.TestStartupAndStop(args);
+            }
+            else
+            {
+                ServiceBase[] ServicesToRun;
+                ServicesToRun = new ServiceBase[]
+                {
+                    new EmissionsService()
+                };
+                ServiceBase.Run(ServicesToRun);
+            }
         }
     }
 }

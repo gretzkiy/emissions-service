@@ -16,44 +16,12 @@ namespace EmissionsService
 {
     public partial class EmissionsService : ServiceBase
     {
-        private Timer timer = new Timer();
-        private int pollInterval = Int32.Parse(ConfigurationManager.AppSettings["pollInterval"]);
+        private readonly Timer timer = new Timer();
+        private readonly int pollInterval = Int32.Parse(ConfigurationManager.AppSettings["pollInterval"]);
 
         public EmissionsService()
         {
             InitializeComponent();
-        }
-
-        protected override void OnStart(string[] args)
-        {
-            timer.Interval = pollInterval;
-            timer.Elapsed += new ElapsedEventHandler(this.SendData);
-            timer.Start();
-        }
-
-        protected override void OnStop()
-        {
-            timer.Stop();
-        }
-
-        // Сбор и отправка данных
-        protected void SendData(object sender, ElapsedEventArgs args)
-        {
-            List<Value> values;
-
-            values = Value.GetNew(DataService.DbConnectionString, pollInterval / 1000);
-
-            if (values.Count == 0)
-            {
-                values = Value.GetLatest(DataService.DbConnectionString);
-            }
-
-            Console.WriteLine(DateTime.UtcNow.ToString());
-            foreach (Value val in values)
-            {
-                Console.WriteLine(val.value);
-            }
-            Console.WriteLine();
         }
 
         // Для запуска в качестве консольного приложения
@@ -62,6 +30,24 @@ namespace EmissionsService
             this.OnStart(args);
             Console.ReadLine();
             this.OnStop();
+        }
+
+        protected override void OnStart(string[] args)
+        {
+            timer.Interval = pollInterval;
+            timer.Elapsed += new ElapsedEventHandler(this.ProcessData);
+            timer.Start();
+        }
+
+        protected override void OnStop()
+        {
+            timer.Stop();
+        }
+
+        // Получение и отправка данных
+        protected void ProcessData(object sender, ElapsedEventArgs args)
+        {
+            TransmitionService.SendData(DBService.GetData());            
         }
     }
 }

@@ -14,12 +14,12 @@ using EmissionsLibrary;
 
 namespace EmissionsService
 {
-    public partial class EmissionsService : ServiceBase
+    public partial class Service : ServiceBase
     {
         private readonly Timer timer = new Timer();
         private readonly int pollInterval = Int32.Parse(ConfigurationManager.AppSettings["pollInterval"]);
 
-        public EmissionsService()
+        public Service()
         {
             InitializeComponent();
         }

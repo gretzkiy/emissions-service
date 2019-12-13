@@ -1,6 +1,6 @@
 ﻿namespace EmissionsService
 {
-    partial class EmissionsService
+    partial class Service
     {
         /// <summary> 
         /// Обязательная переменная конструктора.

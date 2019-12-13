@@ -11,6 +11,7 @@ using System.Net;
 using System.Net.Http;
 using System.Runtime.Serialization.Formatters.Soap;
 using System.IO;
+using AutoMapper;
 
 namespace EmissionsService
 {
@@ -18,24 +19,33 @@ namespace EmissionsService
     {
         public static void SendData(List<TransferData> transmissionDataList)
         {
-            string serializedTransmitionData = TransferData.Serialize(transmissionDataList);
-
-            string soapString = @"<?xml version=""1.0"" encoding=""utf-8""?>
-            <soap:Envelope xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns:soap=""http://schemas.xmlsoap.org/soap/envelope/"">
-                <soap:Body>
-                    <SendData xmlns=""http://tempuri.org/"">" + $"{serializedTransmitionData}" + @"</SendData>  
-                </soap:Body>
-            </soap:Envelope>";
-
-            using (var httpClient = new HttpClient())
+            var service = new WebServiceReference.EmissionsWebServiceSoapClient();
+            var transmitionDataMapper = new MapperConfiguration(cfg =>
             {
-                var httpContent = new StringContent(soapString, Encoding.UTF8, "text/xml");
-                httpContent.Headers.Add("SOAPAction", "http://tempuri.org/SendData");
+                cfg.CreateMap<TransferData, WebServiceReference.TransferData>();
+            }).CreateMapper();
 
-                httpClient.PostAsync("http://localhost:3333/EmissionsClient.asmx/?op=SendData", httpContent);
+            var transmissionDataArray = new WebServiceReference.TransferData[transmissionDataList.Count()];
+
+            for (int i = 0; i < transmissionDataList.Count(); i++)
+            {
+                transmissionDataArray[i] = transmitionDataMapper.Map<WebServiceReference.TransferData>(transmissionDataList[i]);
             }
 
-            Console.WriteLine(soapString);
+            string result;
+            Console.WriteLine(transmissionDataList[0].value);
+            Console.WriteLine(transmissionDataArray[0].value);
+
+            try
+            {
+                result = service.TestMethod(transmissionDataArray);
+            }
+            catch
+            {
+                result = "Some error";
+            }
+
+            Console.WriteLine(result);
         }
     }
 }

@@ -17,7 +17,7 @@ namespace EmissionsService
             if (Environment.UserInteractive)
             {
                 // Запуск в качестве консольного приложения
-                EmissionsService service = new EmissionsService();
+                Service service = new Service();
                 service.TestStartupAndStop(args);
             }
             else
@@ -25,7 +25,7 @@ namespace EmissionsService
                 ServiceBase[] ServicesToRun;
                 ServicesToRun = new ServiceBase[]
                 {
-                    new EmissionsService()
+                    new Service()
                 };
                 ServiceBase.Run(ServicesToRun);
             }

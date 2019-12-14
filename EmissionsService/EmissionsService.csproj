@@ -102,6 +102,9 @@
     <None Include="Connected Services\WebServiceReference\EmissionsService.WebServiceReference.TestMethodResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\WebServiceReference\EmissionsService.WebServiceReference.UploadDataResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\WebServiceReference\EmissionsWebService.wsdl" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

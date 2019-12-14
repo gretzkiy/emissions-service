@@ -32,20 +32,15 @@ namespace EmissionsService
                 transmissionDataArray[i] = transmitionDataMapper.Map<WebServiceReference.TransferData>(transmissionDataList[i]);
             }
 
-            string result;
-            Console.WriteLine(transmissionDataList[0].value);
-            Console.WriteLine(transmissionDataArray[0].value);
-
             try
             {
-                result = service.TestMethod(transmissionDataArray);
+                service.UploadData(transmissionDataArray);
+                Console.WriteLine("Request performed succesfuly");
             }
             catch
             {
-                result = "Some error";
+                Console.WriteLine("Request performed badly");
             }
-
-            Console.WriteLine(result);
         }
     }
 }

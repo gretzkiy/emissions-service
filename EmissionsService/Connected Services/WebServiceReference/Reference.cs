@@ -254,6 +254,13 @@ namespace EmissionsService.WebServiceReference {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/TestMethod", ReplyAction="*")]
         System.Threading.Tasks.Task<EmissionsService.WebServiceReference.TestMethodResponse> TestMethodAsync(EmissionsService.WebServiceReference.TestMethodRequest request);
+        
+        // CODEGEN: Контракт генерации сообщений с именем data из пространства имен http://tempuri.org/ не отмечен как обнуляемый
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/UploadData", ReplyAction="*")]
+        EmissionsService.WebServiceReference.UploadDataResponse UploadData(EmissionsService.WebServiceReference.UploadDataRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/UploadData", ReplyAction="*")]
+        System.Threading.Tasks.Task<EmissionsService.WebServiceReference.UploadDataResponse> UploadDataAsync(EmissionsService.WebServiceReference.UploadDataRequest request);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -385,6 +392,67 @@ namespace EmissionsService.WebServiceReference {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class UploadDataRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="UploadData", Namespace="http://tempuri.org/", Order=0)]
+        public EmissionsService.WebServiceReference.UploadDataRequestBody Body;
+        
+        public UploadDataRequest() {
+        }
+        
+        public UploadDataRequest(EmissionsService.WebServiceReference.UploadDataRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class UploadDataRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public EmissionsService.WebServiceReference.TransferData[] data;
+        
+        public UploadDataRequestBody() {
+        }
+        
+        public UploadDataRequestBody(EmissionsService.WebServiceReference.TransferData[] data) {
+            this.data = data;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class UploadDataResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="UploadDataResponse", Namespace="http://tempuri.org/", Order=0)]
+        public EmissionsService.WebServiceReference.UploadDataResponseBody Body;
+        
+        public UploadDataResponse() {
+        }
+        
+        public UploadDataResponse(EmissionsService.WebServiceReference.UploadDataResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute()]
+    public partial class UploadDataResponseBody {
+        
+        public UploadDataResponseBody() {
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface EmissionsWebServiceSoapChannel : EmissionsService.WebServiceReference.EmissionsWebServiceSoap, System.ServiceModel.IClientChannel {
     }
@@ -466,6 +534,30 @@ namespace EmissionsService.WebServiceReference {
             inValue.Body = new EmissionsService.WebServiceReference.TestMethodRequestBody();
             inValue.Body.transferData = transferData;
             return ((EmissionsService.WebServiceReference.EmissionsWebServiceSoap)(this)).TestMethodAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        EmissionsService.WebServiceReference.UploadDataResponse EmissionsService.WebServiceReference.EmissionsWebServiceSoap.UploadData(EmissionsService.WebServiceReference.UploadDataRequest request) {
+            return base.Channel.UploadData(request);
+        }
+        
+        public void UploadData(EmissionsService.WebServiceReference.TransferData[] data) {
+            EmissionsService.WebServiceReference.UploadDataRequest inValue = new EmissionsService.WebServiceReference.UploadDataRequest();
+            inValue.Body = new EmissionsService.WebServiceReference.UploadDataRequestBody();
+            inValue.Body.data = data;
+            EmissionsService.WebServiceReference.UploadDataResponse retVal = ((EmissionsService.WebServiceReference.EmissionsWebServiceSoap)(this)).UploadData(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<EmissionsService.WebServiceReference.UploadDataResponse> EmissionsService.WebServiceReference.EmissionsWebServiceSoap.UploadDataAsync(EmissionsService.WebServiceReference.UploadDataRequest request) {
+            return base.Channel.UploadDataAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<EmissionsService.WebServiceReference.UploadDataResponse> UploadDataAsync(EmissionsService.WebServiceReference.TransferData[] data) {
+            EmissionsService.WebServiceReference.UploadDataRequest inValue = new EmissionsService.WebServiceReference.UploadDataRequest();
+            inValue.Body = new EmissionsService.WebServiceReference.UploadDataRequestBody();
+            inValue.Body.data = data;
+            return ((EmissionsService.WebServiceReference.EmissionsWebServiceSoap)(this)).UploadDataAsync(inValue);
         }
     }
 }
